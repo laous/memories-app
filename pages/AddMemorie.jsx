@@ -14,20 +14,21 @@ const AddMemorie = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let num = Math.random();
     const memorie = {
       name: name,
       title: title,
       desc: desc,
       hashtag: hashtag,
+      image: num > 0.5 ? "/images/memorie.jpg" : "/images/memorie2.jpg",
     };
     if (name == "" || title == "" || desc == "" || hashtag == "") {
+      alert("Please complete all the informations!");
       return null;
     }
 
-    await axios.post(
-      "https://memories-app-black.vercel.app/api/memorie",
-      memorie
-    );
+    await axios.post(process.env.APP_URL + "/api/memorie", memorie);
     router.push("/");
   };
 
