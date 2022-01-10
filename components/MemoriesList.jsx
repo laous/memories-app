@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import MemorieCard from "./MemorieCard";
 
-const MemoriesList = () => {
+const MemoriesList = ({ memories }) => {
   return (
     <Container>
-      <MemorieCard />
-      <MemorieCard />
-      <MemorieCard />
-      <MemorieCard />
-      <MemorieCard />
+      {memories.map((memorie) => (
+        <MemorieCard memorie={memorie} key={memorie._id} />
+      ))}
     </Container>
   );
 };

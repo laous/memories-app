@@ -1,21 +1,19 @@
 import styled from "styled-components";
 
-const MemorieCard = () => {
+const MemorieCard = ({ memorie }) => {
+  const nbLikes = Math.floor(Math.random() * 100);
   return (
     <Container>
-      <Part1 img={"/images/memorie.jpg"}>
-        <Text>Mark</Text>
+      <Part1 img={memorie.image}>
+        <Text>{memorie.name}</Text>
       </Part1>
       <Part2>
         <Title>
-          <span>#wondeful</span>
-          <h1>My first Trip!</h1>
+          <span>#{memorie.hashtag}</span>
+          <h1>{memorie.title}</h1>
         </Title>
-        <p>
-          We recently visited the most beautiful beach at Venezuella, and
-          happend to meet the best sunset ever! A must visit place.
-        </p>
-        <p>69 Likes</p>
+        <p>{memorie.desc}</p>
+        <p>{nbLikes} Likes</p>
       </Part2>
     </Container>
   );

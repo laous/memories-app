@@ -19,4 +19,8 @@ body {
   margin-left: 4rem;
   margin-right: 4rem;
   background-color: #e5e5e5;
+  @media screen and (max-width: 948px) {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }

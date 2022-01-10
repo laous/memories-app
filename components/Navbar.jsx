@@ -36,7 +36,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
 `;
 // const Logo = styled(Image)``;
 const Search = styled.div`
@@ -54,6 +53,10 @@ const Search = styled.div`
     height: 42px;
     width: 500px;
     border-radius: 0 5px 5px 0;
+  }
+
+  @media screen and (max-width: 948px) {
+    display: none;
   }
 `;
 

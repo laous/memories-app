@@ -1,9 +1,11 @@
+import axios from 'axios'
 import Head from 'next/head'
 import HomeImage from '../components/HomeImage'
 import MemoriesList from '../components/MemoriesList'
 import Navbar from '../components/Navbar'
 
-export default function Home() {
+export default function Home({memories}) {
+  console.log(memories)
   return (
     <div>
       <Head>
@@ -15,9 +17,21 @@ export default function Home() {
       <main>
         <h1 style={{textAlign:"center"}}>Welcome to memories!</h1>
         <HomeImage />
-        <MemoriesList />
+        <MemoriesList memories={memories}/>
       </main>
 
     </div>
   )
+}
+
+
+export const getServerSideProps = async () =>{
+  const res = await axios.get("http://localhost:3000/api/memorie")
+  console.log(res)
+
+  return {
+    props:{
+      memories:res.data
+    }
+  }
 }

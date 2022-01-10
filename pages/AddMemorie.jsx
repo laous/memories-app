@@ -1,20 +1,31 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const AddMemorie = () => {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [hashtag, setHashtag] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const memorie = {
-      name,
-      title,
-      desc,
-      hashtag,
+      name: name,
+      title: title,
+      desc: desc,
+      hashtag: hashtag,
     };
+    if (name == "" || title == "" || desc == "" || hashtag == "") {
+      return null;
+    }
+
+    await axios.post("http://localhost:3000/api/memorie", memorie);
+    router.push("/");
   };
 
   return (
@@ -26,7 +37,7 @@ const AddMemorie = () => {
         </Link>
       </Top>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Your Name</label>
         <input
           type="text"
