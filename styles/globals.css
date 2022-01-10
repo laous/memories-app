@@ -1,9 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap");
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -13,4 +12,11 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  margin-left: 4rem;
+  margin-right: 4rem;
+  background-color: #e5e5e5;
 }
