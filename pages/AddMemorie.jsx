@@ -24,7 +24,10 @@ const AddMemorie = () => {
       return null;
     }
 
-    await axios.post("http://localhost:3000/api/memorie", memorie);
+    await axios.post(
+      "https://memories-app-black.vercel.app/api/memorie",
+      memorie
+    );
     router.push("/");
   };
 
