@@ -62,7 +62,7 @@ const AddMemorie = () => {
     setTitle("");
     setUrl("");
     setImage(null);
-    await axios.post(process.env.APP_URL + "/api/memorie", memorie);
+    await axios.post(process.env.APP_URL + "api/memorie", memorie);
     router.push("/");
   };
 
