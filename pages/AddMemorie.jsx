@@ -62,8 +62,10 @@ const AddMemorie = () => {
     setTitle("");
     setUrl("");
     setImage(null);
-    await axios.post(process.env.APP_URL + "api/memorie", memorie);
-    router.push("/");
+    axios
+      .post("https://memories-app-black.vercel.app/api/memorie", memorie)
+      .then(() => router.push("/"))
+      .catch(() => alert("Error!"));
   };
 
   return (
