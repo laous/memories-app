@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const AddMemorie = () => {
   const router = useRouter();
@@ -11,18 +13,49 @@ const AddMemorie = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [hashtag, setHashtag] = useState("");
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState("");
+
+  console.log(image);
+
+  const handleUpload = () => {
+    const sotrageRef = ref(storage, `images/${image.name}`);
+    const uploadTask = uploadBytesResumable(sotrageRef, image);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        // setProgress(prog);
+      },
+      (error) => console.log(error),
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log("File available at", downloadURL);
+          setUrl(downloadURL);
+        });
+      }
+    );
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    let num = Math.random();
+    handleUpload();
     const memorie = {
       name: name,
       title: title,
       desc: desc,
       hashtag: hashtag,
-      image: num > 0.5 ? "/images/memorie.jpg" : "/images/memorie2.jpg",
+      image: url,
     };
+    setName("");
+    setDesc("");
+    setHashtag("");
+    setTitle("");
+    setUrl("");
+    setImage(null);
     if (name == "" || title == "" || desc == "" || hashtag == "") {
       alert("Please complete all the informations!");
       return null;
@@ -42,31 +75,40 @@ const AddMemorie = () => {
       </Top>
 
       <form onSubmit={handleSubmit}>
-        <label>Your Name</label>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <label>Title</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label>Description</label>
-        <input
-          type="text"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-        />
-        <label>HashTags</label>
-        <input
-          type="text"
-          value={hashtag}
-          onChange={(e) => setHashtag(e.target.value)}
-        />
-        <input type="submit" value={"Ajouter"} />
+        <Item>
+          {" "}
+          <label>Your Name</label>
+          <label>Title</label>
+          <label>Image</label>
+          <label>Description</label>
+          <label>HashTags</label>
+        </Item>
+        <Item>
+          {" "}
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+          <input
+            type="text"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+          />
+          <input
+            type="text"
+            value={hashtag}
+            onChange={(e) => setHashtag(e.target.value)}
+          />
+        </Item>
+
+        <Button type="submit" value={"Add"} />
       </form>
     </Container>
   );
@@ -80,7 +122,8 @@ const Container = styled.div`
 
   form {
     display: flex;
-    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: center;
     gap: 1rem;
   }
 `;
@@ -93,4 +136,27 @@ const Top = styled.div`
   a {
     color: teal;
   }
+`;
+
+const Item = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 1.5rem;
+  align-items: center;
+
+  label {
+    text-align: center;
+  }
+`;
+
+const Button = styled.input`
+  padding: 0.7rem 2rem;
+  font-size: 16px;
+  background-color: white;
+  color: black;
+  width: 10%;
+  align-self: center;
+  cursor: pointer;
 `;

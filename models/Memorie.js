@@ -23,7 +23,6 @@ const MemorieSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default:"/images/memorie2.jpg"
     },
   },
   { timestamps: true }
