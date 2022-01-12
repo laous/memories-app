@@ -42,7 +42,13 @@ const AddMemorie = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (name == "" || title == "" || desc == "" || hashtag == "") {
+      alert("Please complete all the informations!");
+      return null;
+    }
     handleUpload();
+
     const memorie = {
       name: name,
       title: title,
@@ -56,11 +62,6 @@ const AddMemorie = () => {
     setTitle("");
     setUrl("");
     setImage(null);
-    if (name == "" || title == "" || desc == "" || hashtag == "") {
-      alert("Please complete all the informations!");
-      return null;
-    }
-
     await axios.post(process.env.APP_URL + "/api/memorie", memorie);
     router.push("/");
   };
