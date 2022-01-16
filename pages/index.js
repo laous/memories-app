@@ -1,11 +1,13 @@
 import axios from 'axios'
 import Head from 'next/head'
+import { useState } from 'react'
 import HomeImage from '../components/HomeImage'
 import MemoriesList from '../components/MemoriesList'
 import Navbar from '../components/Navbar'
 
-export default function Home({memories}) {
-  console.log(memories)
+export default function Home({memoriesList}) {
+  const [query , setQuery] = useState("")
+  const [memories , setMemories] = useState(memoriesList)
   return (
     <div>
       <Head>
@@ -26,12 +28,12 @@ export default function Home({memories}) {
 
 
 export const getServerSideProps = async () =>{
-  const res = await axios.get("https://memories-app-black.vercel.app/api/memorie")
+  const res = await axios.get("http://localhost:3000/api/memorie")
   console.log(res)
 
   return {
     props:{
-      memories:res.data
+      memoriesList:res.data
     }
   }
 }

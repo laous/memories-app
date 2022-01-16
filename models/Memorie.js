@@ -23,6 +23,7 @@ const MemorieSchema = new mongoose.Schema(
     },
     image: {
       type: String,
+      maxlength: 400,
     },
   },
   { timestamps: true }
