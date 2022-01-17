@@ -21,7 +21,7 @@ const AddMemorie = () => {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState("");
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     const sotrageRef = ref(storage, `images/${file.name}`);
     const uploadTask = uploadBytesResumable(sotrageRef, file);
 
@@ -47,7 +47,7 @@ const AddMemorie = () => {
     e.preventDefault();
     handleUpload();
 
-    await delay(5);
+    await delay(10);
     console.log("after delay");
 
     const memorie = {
@@ -60,7 +60,7 @@ const AddMemorie = () => {
 
     console.log(memorie);
     await axios
-      .post("http://localhost:3000/api/memorie", memorie)
+      .post("https://memories-app-black.vercel.app/api/memorie", memorie)
       .then(() => router.push("/"))
       .catch(() => alert("Error!"));
 

@@ -28,7 +28,7 @@ export default function Home({memoriesList}) {
 
 
 export const getServerSideProps = async () =>{
-  const res = await axios.get("http://localhost:3000/api/memorie")
+  const res = await axios.get("https://memories-app-black.vercel.app/api/memorie")
   console.log(res)
 
   return {
