@@ -1,21 +1,18 @@
-import Image from "next/image";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 
 const Navbar = () => {
   const { data: session } = useSession();
   return (
     <Container>
       <Wrapper>
-        {/* <Logo src="/images/logo.png" width="50px" height="50px" alt="Logo" /> */}
         <h1>Memories</h1>
         <Search>
           <Icon>
             <AiOutlineSearch />
           </Icon>
-
           <input type="text" placeholder="Searching for a memorie?" />
         </Search>
 
@@ -24,13 +21,13 @@ const Navbar = () => {
             <NewButton>New Memorie {">"}</NewButton>
           </Link>
         ) : (
-          <p>Login</p>
+          <button onClick={() => signIn()}>Login</button>
+          // <p>LL</p>
         )}
       </Wrapper>
     </Container>
   );
 };
-
 export default Navbar;
 
 const Container = styled.header`

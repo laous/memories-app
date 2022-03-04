@@ -35,9 +35,9 @@ const AddMemorie = () => {
   // submitting the post request after getting the link
   useEffect(() => {
     axios
-      .post("https://memories-app-black.vercel.app/api/memorie", memorie)
+      .post("http://localhost:3000/api/memorie", memorie)
       .then(() => router.push("/"))
-      .catch(() => "");
+      .catch((error) => console.error(error.response.data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memorie.image]);
 

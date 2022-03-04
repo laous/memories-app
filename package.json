@@ -8,10 +8,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^0.24.0",
+    "axios": "^0.26.0",
     "firebase": "^9.6.2",
     "mongoose": "^6.1.6",
-    "next": "12.0.7",
+    "next": "^12.1.0",
     "next-auth": "^4.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
