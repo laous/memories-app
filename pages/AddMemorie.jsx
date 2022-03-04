@@ -37,7 +37,8 @@ const AddMemorie = () => {
     axios
       .post("https://memories-app-black.vercel.app/api/memorie", memorie)
       .then(() => router.push("/"))
-      .catch(() => alert("Error!"));
+      .catch(() => "");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memorie.image]);
 
   return (

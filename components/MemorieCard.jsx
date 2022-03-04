@@ -1,10 +1,18 @@
 import styled from "styled-components";
+import Image from "next/dist/client/image";
 
 const MemorieCard = ({ memorie }) => {
   const nbLikes = Math.floor(Math.random() * 100);
   return (
     <Container>
-      <Part1 img={memorie.image}>
+      <Part1>
+        <Image
+          src={memorie.image}
+          layout="fill"
+          alt={memorie.title}
+          objectFit="cover"
+          loading="lazy"
+        />
         <Text>{memorie.name}</Text>
       </Part1>
       <Part2>
@@ -39,9 +47,7 @@ const Container = styled.div`
 const Part1 = styled.div`
   height: 100%;
   position: relative;
-  background-image: url(${(props) => props.img});
-  background-size: cover;
-  background-position: center;
+  flex: 1;
 `;
 
 const Text = styled.div`
@@ -55,6 +61,7 @@ const Part2 = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 0.7rem 1rem;
+  flex: 1;
   p {
     font-size: 16px;
   }
