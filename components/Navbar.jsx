@@ -2,8 +2,10 @@ import Image from "next/image";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
+  const { data: session } = useSession();
   return (
     <Container>
       <Wrapper>
@@ -16,9 +18,14 @@ const Navbar = () => {
 
           <input type="text" placeholder="Searching for a memorie?" />
         </Search>
-        <Link href="/AddMemorie" passHref>
-          <NewButton>New Memorie {">"}</NewButton>
-        </Link>
+
+        {session ? (
+          <Link href="/AddMemorie" passHref>
+            <NewButton>New Memorie {">"}</NewButton>
+          </Link>
+        ) : (
+          <p>Login</p>
+        )}
       </Wrapper>
     </Container>
   );
