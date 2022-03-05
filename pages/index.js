@@ -6,6 +6,7 @@ import MemoriesList from '../components/MemoriesList'
 import Navbar from '../components/Navbar'
 
 export default function Home({memoriesList}) {
+  
   const [query , setQuery] = useState("")
   const [memories , setMemories] = useState(memoriesList)
   return (
@@ -28,8 +29,10 @@ export default function Home({memoriesList}) {
 
 
 export const getServerSideProps = async () =>{
-  const res = await axios.get("https://memories-app-black.vercel.app/api/memorie")
-  console.log(res)
+  const hostname = process.env.NEXT_PUBLIC_SITE_URL
+  console.log(hostname)
+  const res = await axios.get(`${hostname}/api/memorie`)
+  // console.log(res)
 
   return {
     props:{

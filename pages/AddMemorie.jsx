@@ -6,9 +6,19 @@ import { useRouter } from "next/router";
 import { storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
+import { useSession } from "next-auth/react";
+
 const AddMemorie = () => {
+  // get session
+  const session = useSession();
+
+  //get router
   const router = useRouter();
 
+  // get hostname for requests
+  const hostname = process.env.NEXT_PUBLIC_SITE_URL;
+
+  //image state
   const [file, setFile] = useState(null);
 
   const [memorie, setMemorie] = useState({
@@ -30,14 +40,16 @@ const AddMemorie = () => {
       .then((downloadURL) => setMemorie({ ...memorie, image: downloadURL }))
       .then(() => console.log(memorie))
       .catch((e) => alert("ERROR " + e));
+
+    setMemorie({ ...memorie, name: session.user.name });
   };
 
   // submitting the post request after getting the link
   useEffect(() => {
     axios
-      .post("https://memories-app-black.vercel.app/api/memorie", memorie)
+      .post(`${hostname}/api/memorie`, memorie)
       .then(() => router.push("/"))
-      .catch(() => "");
+      .catch((error) => console.error(error.response.data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memorie.image]);
 
@@ -53,7 +65,6 @@ const AddMemorie = () => {
       <form onSubmit={handleSubmit}>
         <Item>
           {" "}
-          <label>Your Name</label>
           <label>Title</label>
           <label>Image</label>
           <label>Description</label>
@@ -61,12 +72,6 @@ const AddMemorie = () => {
         </Item>
         <Item>
           {" "}
-          <input
-            type="text"
-            value={memorie.name}
-            onChange={(e) => setMemorie({ ...memorie, name: e.target.value })}
-            required
-          />
           <input
             type="text"
             value={memorie.title}
