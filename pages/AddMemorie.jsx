@@ -35,7 +35,7 @@ const AddMemorie = () => {
   // submitting the post request after getting the link
   useEffect(() => {
     axios
-      .post(process.env.APP_URL + "api/memorie", memorie)
+      .post("/api/memorie", memorie)
       .then(() => router.push("/"))
       .catch((error) => console.error(error.response.data));
     // eslint-disable-next-line react-hooks/exhaustive-deps

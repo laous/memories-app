@@ -28,7 +28,7 @@ export default function Home({memoriesList}) {
 
 
 export const getServerSideProps = async () =>{
-  const res = await axios.get(process.env.APP_URL+"api/memorie")
+  const res = await axios.get("/api/memorie")
   console.log(res)
 
   return {
