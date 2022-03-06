@@ -17,7 +17,7 @@ const Container = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
-  padding: 2rem 1.5rem;
+  padding: 2rem 1rem;
 `;
