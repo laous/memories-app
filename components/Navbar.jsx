@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 const Navbar = ({ term }) => {
   const { data: session, status } = useSession();
-  console.log(session);
 
   const [query, setQuery] = useState(!term ? "" : term);
 
@@ -16,7 +15,7 @@ const Navbar = ({ term }) => {
   const handleChange = (e) => {
     setQuery(e.target.value);
 
-    router.push(`/search?query=${query}`);
+    router.push(`/search?query=${query}`, undefined, { shallow: true });
   };
 
   return (
@@ -33,7 +32,7 @@ const Navbar = ({ term }) => {
             type="text"
             placeholder="Searching for a memorie?"
             value={query}
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
           />
         </Search>
 
