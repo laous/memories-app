@@ -1,17 +1,31 @@
+import Image from "next/image";
 import styled from "styled-components";
 import Cover from "../public/images/cover.jpg";
 
 const HomeImage = () => {
-  return <Container img={"/images/cover.jpg"}></Container>;
+  return (
+    <Container>
+      <Image
+        src="/images/cover.jpg"
+        alt="Memories"
+        height={"400px"}
+        width="1000px"
+        id="#banner"
+        objectFit="cover"
+      />
+    </Container>
+  );
 };
 
 export default HomeImage;
 
 const Container = styled.section`
-  width: 100%;
-  min-height: 400px;
-  background-image: url(${(props) => props.img});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  #banner {
+    min-width: 400px;
+    min-height: 400px;
+    object-fit: cover;
+  }
 `;

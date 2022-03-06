@@ -7,10 +7,14 @@ import { storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 import { useSession } from "next-auth/react";
+import Head from "next/head";
 
 const AddMemorie = () => {
   // get session
-  const session = useSession();
+  const { data: session, status } = useSession();
+  const userName = "No name";
+
+  if (status === "authenticated") userName = session.user.name;
 
   //get router
   const router = useRouter();
@@ -41,7 +45,7 @@ const AddMemorie = () => {
       .then(() => console.log(memorie))
       .catch((e) => alert("ERROR " + e));
 
-    setMemorie({ ...memorie, name: session.user.name });
+    setMemorie({ ...memorie, name: userName });
   };
 
   // submitting the post request after getting the link
@@ -54,55 +58,68 @@ const AddMemorie = () => {
   }, [memorie.image]);
 
   return (
-    <Container>
-      <Top>
-        <h1>Add new Memorie!</h1>
-        <Link href={"/"} passHref>
-          Back Home
-        </Link>
-      </Top>
+    <>
+      <Head>
+        <title>Add new memorie</title>
+        <meta
+          name="description"
+          content="Add the details of your new memorie."
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Container>
+        <Top>
+          <h1>Add new Memorie!</h1>
+          <Link href={"/"} passHref>
+            Back Home
+          </Link>
+        </Top>
 
-      <form onSubmit={handleSubmit}>
-        <Item>
-          {" "}
-          <label>Title</label>
-          <label>Image</label>
-          <label>Description</label>
-          <label>HashTags</label>
-        </Item>
-        <Item>
-          {" "}
-          <input
-            type="text"
-            value={memorie.title}
-            onChange={(e) => setMemorie({ ...memorie, title: e.target.value })}
-            required
-          />
-          <input
-            type="file"
-            onChange={(e) => setFile(e.target.files[0])}
-            required
-            onc
-          />
-          <input
-            type="text"
-            value={memorie.desc}
-            onChange={(e) => setMemorie({ ...memorie, desc: e.target.value })}
-            required
-          />
-          <input
-            type="text"
-            value={memorie.hashtag}
-            onChange={(e) =>
-              setMemorie({ ...memorie, hashtag: e.target.value })
-            }
-            required
-          />
-        </Item>
+        <form onSubmit={handleSubmit}>
+          <Item>
+            {" "}
+            <label>Title</label>
+            <label>Image</label>
+            <label>Description</label>
+            <label>HashTags</label>
+          </Item>
+          <Item>
+            {" "}
+            <input
+              type="text"
+              value={memorie.title}
+              onChange={(e) =>
+                setMemorie({ ...memorie, title: e.target.value })
+              }
+              required
+            />
+            <input
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+              required
+              onc
+            />
+            <textarea
+              value={memorie.desc}
+              onChange={(e) => setMemorie({ ...memorie, desc: e.target.value })}
+              required
+              cols={"50"}
+              rows={"6"}
+            />
+            <input
+              type="text"
+              value={memorie.hashtag}
+              onChange={(e) =>
+                setMemorie({ ...memorie, hashtag: e.target.value })
+              }
+              required
+            />
+          </Item>
 
-        <Button type="submit" value={"Add"} />
-      </form>
-    </Container>
+          <Button type="submit" value={"Add"} />
+        </form>
+      </Container>
+    </>
   );
 };
 

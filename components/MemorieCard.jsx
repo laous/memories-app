@@ -7,7 +7,7 @@ const MemorieCard = ({ memorie }) => {
     <Container>
       <Part1>
         <Image
-          src={memorie.image}
+          src={!memorie.image ? "/images/noimage.jpg" : memorie.image}
           layout="fill"
           alt={memorie.title}
           objectFit="cover"
@@ -34,9 +34,11 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   height: 460px;
+  width: 22%;
+  min-width: 300px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-  width: 332px;
+
   transition: all ease 0.4s;
   border-radius: 10px;
 
