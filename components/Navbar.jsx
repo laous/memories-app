@@ -2,19 +2,39 @@ import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
-const Navbar = () => {
-  const { data: session } = useSession();
+const Navbar = ({ term }) => {
+  const { data: session, status } = useSession();
   console.log(session);
+
+  const [query, setQuery] = useState(!term ? "" : term);
+
+  const router = useRouter();
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+
+    router.push(`/search?query=${query}`);
+  };
+
   return (
     <Container>
       <Wrapper>
-        <h1>Memories</h1>
+        <Link href={"/"} passHref>
+          <h1 style={{ cursor: "pointer" }}>Memories</h1>
+        </Link>
         <Search>
           <Icon>
             <AiOutlineSearch />
           </Icon>
-          <input type="text" placeholder="Searching for a memorie?" />
+          <input
+            type="text"
+            placeholder="Searching for a memorie?"
+            value={query}
+            onChange={handleChange}
+          />
         </Search>
 
         {session ? (
@@ -22,7 +42,7 @@ const Navbar = () => {
             <NewButton>New Memorie {">"}</NewButton>
           </Link>
         ) : (
-          <button onClick={() => signIn()}>Login</button>
+          <NewButton onClick={() => signIn()}>Login</NewButton>
           // <p>LL</p>
         )}
       </Wrapper>
@@ -84,4 +104,11 @@ const NewButton = styled.button`
   border: none;
   font-size: 17px;
   cursor: pointer;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+
+  :hover {
+    border: 1px solid black;
+    transform: skewY(10%);
+  }
 `;

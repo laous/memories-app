@@ -7,7 +7,7 @@ const MemorieCard = ({ memorie }) => {
     <Container>
       <Part1>
         <Image
-          src={memorie.image}
+          src={!memorie.image ? "/images/noimage.jpg" : memorie.image}
           layout="fill"
           alt={memorie.title}
           objectFit="cover"
