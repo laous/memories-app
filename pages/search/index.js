@@ -9,6 +9,7 @@ const index = () => {
     query = queryParams.get("query");
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const list = useSelector((state) => state.memories.list);
 
   return (

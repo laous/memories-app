@@ -16,6 +16,7 @@ export default function Home({memoriesList}) {
   useEffect(
     ()=> {
         dispatch(add(memoriesList))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     } , []
   )
 
