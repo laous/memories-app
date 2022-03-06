@@ -1,6 +1,6 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
+import { useSelector } from "react-redux";
+import MemoriesList from "../../components/MemoriesList";
 
 const index = () => {
   const query = "";
@@ -9,9 +9,17 @@ const index = () => {
     query = queryParams.get("query");
   }
 
+  const list = useSelector((state) => state.memories.list);
+
   return (
     <>
-      <div>{query}</div>
+      <div>
+        <MemoriesList
+          memories={list.filter((item) =>
+            item.name.toLowerCase().includes(query.toLowerCase())
+          )}
+        />
+      </div>
     </>
   );
 };
