@@ -14,8 +14,9 @@ const Navbar = ({ term }) => {
 
   const handleChange = (e) => {
     setQuery(e.target.value);
-
-    router.push(`/search?query=${query}`, undefined, { shallow: true });
+    router.push(`/search?query=${e.target.value}`, undefined, {
+      shallow: true,
+    });
   };
 
   return (

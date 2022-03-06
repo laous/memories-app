@@ -1,10 +1,9 @@
 import axios from 'axios'
 import Head from 'next/head'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import HomeImage from '../components/HomeImage'
 import MemoriesList from '../components/MemoriesList'
-import Navbar from '../components/Navbar'
 import { add } from '../reducers/memoriesReducer'
 
 export default function Home({memoriesList}) {
