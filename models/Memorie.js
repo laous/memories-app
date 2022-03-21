@@ -2,29 +2,36 @@ import mongoose from "mongoose";
 
 const MemorieSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      maxlength: 60,
-    },
     title: {
       type: String,
       required: true,
       maxlength: 60,
     },
+    small_desc: {
+      type: String,
+      required: true,
+      maxlength: 150,
+    },
     desc: {
       type: String,
       required: true,
-      maxlength: 200,
+      maxlength: 400,
     },
     hashtag: {
-      type: String,
-      default: 0,
+      type: [String],
+      default: ['no-hashtag'],
     },
     image: {
       type: String,
+      required:true,
       maxlength: 400,
     },
+    user:{ 
+      type: Schema.Types.ObjectId, ref: 'User',
+      required:true 
+    },
+    likes: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    
   },
   { timestamps: true }
 );
