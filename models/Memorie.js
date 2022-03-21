@@ -27,10 +27,10 @@ const MemorieSchema = new mongoose.Schema(
       maxlength: 400,
     },
     user:{ 
-      type: Schema.Types.ObjectId, ref: 'User',
+      type: mongoose.Schema.Types.ObjectId, ref: 'User',
       required:true 
     },
-    likes: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
     
   },
   { timestamps: true }
