@@ -7,11 +7,6 @@ const MemorieSchema = new mongoose.Schema(
       required: true,
       maxlength: 60,
     },
-    small_desc: {
-      type: String,
-      required: true,
-      maxlength: 150,
-    },
     desc: {
       type: String,
       required: true,
@@ -26,11 +21,14 @@ const MemorieSchema = new mongoose.Schema(
       required:true,
       maxlength: 400,
     },
-    user:{ 
-      type: mongoose.Schema.Types.ObjectId, ref: 'User',
+    email:{ 
+      type: String,
       required:true 
     },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    username:{ 
+      type: String,
+      required:true 
+    },
     
   },
   { timestamps: true }
