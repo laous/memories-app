@@ -41,7 +41,7 @@ export default function Home({memoriesList}) {
 export const getServerSideProps = async () =>{
   const hostname = process.env.NEXT_PUBLIC_SITE_URL
   console.log(hostname)
-  const res = await axios.get(`${hostname}/api/memorie`)
+  const res = await axios.get(`${hostname}/api/memories`)
   // console.log(res)
 
   return {
