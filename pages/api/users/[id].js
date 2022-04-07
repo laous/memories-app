@@ -1,4 +1,4 @@
-import Memorie from "../../../models/Memorie"
+import User from "../../../models/User"
 import dbConnect from "../../../util/dbConnect"
 
 export default async function handler(req, res) {
@@ -10,18 +10,18 @@ export default async function handler(req, res) {
     switch (method) {
         case "GET":
             try{
-                const memorie =  await Memorie.findById(id)
-                res.status(201).json(memorie)
+                const user =  await User.findById(id)
+                res.status(201).json(user)
             }catch(err){
                 res.status(500).json(err);
             }
             break;
         case "POST":
             try{
-                const memorie =  await Memorie.find({_id: id})
-                if(!memorie) {
+                const user =  await User.find({_id: id})
+                if(!user) {
                     res.status(400)
-                    throw new Error("Memorie not found")
+                    throw new Error("User not found")
                 }
             
                 // if(!req.user){
@@ -36,9 +36,9 @@ export default async function handler(req, res) {
                 // }
 
                 // (id , new updates , create new one if not found)
-                const updatedMemorie = await Memorie.findByIdAndUpdate(id, req.body, {new:true})
+                const updatedUser = await User.findByIdAndUpdate(id, req.body, {new:true})
 
-                res.status(200).json(updatedMemorie)
+                res.status(200).json(updatedUser)
 
             }catch(err){
                 res.status(500).json(err);
@@ -46,10 +46,10 @@ export default async function handler(req, res) {
             break;
         case "DELETE":
             try{
-                const memorie =  await Memorie.find({_id: id})
-                if(!memorie) {
+                const user =  await User.find({_id: id})
+                if(!user) {
                     res.status(400)
-                    throw new Error("Memorie not found")
+                    throw new Error("User not found")
                 }
             
                 // if(!req.user){
@@ -64,9 +64,9 @@ export default async function handler(req, res) {
                 // }
 
                 // (id , new updates , create new one if not found)
-                const updatedMemorie = await Memorie.findByIdAndDelete(id, req.body, {new:true})
+                const updatedUser = await User.findByIdAndDelete(id, req.body, {new:true})
 
-                res.status(200).json(updatedMemorie)
+                res.status(200).json(updatedUser)
 
             }catch(err){
                 res.status(500).json(err);

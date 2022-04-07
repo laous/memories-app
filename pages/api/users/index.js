@@ -1,4 +1,4 @@
-import Memorie from "../../../models/Memorie"
+import User from "../../../models/User"
 import dbConnect from "../../../util/dbConnect"
 export default async function handler(req, res) {
     const {method} = req
@@ -8,16 +8,21 @@ export default async function handler(req, res) {
     switch (method) {
         case "GET":
             try{
-                const memories =  await Memorie.find()
-                res.status(202).json(memories)
+                const users =  await User.find()
+                res.status(202).json(users)
             }catch(err){
                 res.status(500).json(err);
             }
             break;
         case "POST":
             try{
-                const memorie =  await Memorie.create(req.body)
-                res.status(201).json(memorie)
+                const existingUser = await User.find({email:req.body.email})
+                if(existingUser){
+                    res.status(500)
+                    throw new Error('User existing')
+                }
+                const user =  await User.create(req.body)
+                res.status(201).json(user)
             }catch(err){
                 res.status(500).json(err);
             }
