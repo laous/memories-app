@@ -1,30 +1,30 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
 import MemoriesList from "../../components/MemoriesList";
+import { getAllMemories } from "../../reducers/memoriesReducer";
 
-const index = () => {
-  // get router object
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+const Search = () => {
   const router = useRouter();
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [query, setQuery] = useState("");
-
-  // change query state whenever the router changes
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => setQuery(router.query.query), [router]);
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const list = useSelector((state) => state.memories.list);
-  console.log(list);
+  const memories = useSelector((state) => state.memories);
+  console.log(memories)
+  const dispatch = useDispatch()
+
+  useEffect(() =>{
+    if(memories.status === 'idle' ){
+      dispatch(getAllMemories())
+    }
+  },[memories , dispatch])
 
   return (
     <>
       <div>
         <MemoriesList
-          memories={list.filter((item) =>
-            item.name.toLowerCase().includes(query.toLowerCase())
+          memories={memories?.list?.filter((item) =>
+            item.name?.toLowerCase().includes(query.toLowerCase())
           )}
         />
       </div>
@@ -32,4 +32,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Search;

@@ -4,7 +4,7 @@ import MemorieCard from "./MemorieCard";
 const MemoriesList = ({ memories }) => {
   return (
     <Container>
-      {memories.map((memorie) => (
+      {memories?.map((memorie) => (
         <MemorieCard memorie={memorie} key={memorie._id} />
       ))}
     </Container>
