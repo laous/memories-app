@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
-import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
 const Navbar = ({ term }) => {
   const { data: session, status } = useSession();
+  console.log(session);
 
   const [query, setQuery] = useState(!term ? "" : term);
 
@@ -38,11 +39,21 @@ const Navbar = ({ term }) => {
         </Search>
 
         {session ? (
-          <Link href="/AddMemorie" passHref>
-            <NewButton>New Memorie {">"}</NewButton>
-          </Link>
+          <NewButton
+            onClick={async () => {
+              await signOut();
+            }}
+          >
+            Sign out
+          </NewButton>
         ) : (
-          <NewButton onClick={() => signIn()}>Login</NewButton>
+          <NewButton
+            onClick={async () => {
+              await signIn();
+            }}
+          >
+            Login
+          </NewButton>
           // <p>LL</p>
         )}
       </Wrapper>
