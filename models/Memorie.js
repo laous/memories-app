@@ -21,14 +21,10 @@ const MemorieSchema = new mongoose.Schema(
       required:true,
       maxlength: 400,
     },
-    email:{ 
-      type: String,
-      required:true 
-    },
-    username:{ 
-      type: String,
-      required:true 
-    },
+    userId: { 
+      type: mongoose.Types.ObjectId, 
+      ref: 'users' 
+    }
     
   },
   { timestamps: true }
