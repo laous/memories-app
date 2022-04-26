@@ -26,6 +26,7 @@ const Search = () => {
           memories={memories?.list?.filter((item) =>
             item.name?.toLowerCase().includes(query.toLowerCase())
           )}
+          title={`Search results for: ${query}`}
         />
       </div>
     </>
