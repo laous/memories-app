@@ -21,15 +21,14 @@ export default NextAuth({
     jwt: async ({ token, user }) => {
       if (user) token.id = user.email
       return token
-    }, // called whenever session is checked
-    // session: async ({ session, token }) => {
-    //   session.user.username = session.user.name.split(' ').join('').toLocaleLowerCase()
-    //   if (token) {
-    //     session.user.jti = token.jti
-    //     session.token = token
-    //   }
-    //   return session
-    // },
+    }, 
+    // called whenever session is checked
+    session: async ({ session, token }) => {
+      if (token) {
+        session.token = token
+      }
+      return session
+    },
   },
   secret: 'memories22',
   session: {

@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Image from "next/dist/client/image";
 
 const MemorieCard = ({ memorie }) => {
@@ -57,51 +56,3 @@ const MemorieCard = ({ memorie }) => {
 };
 
 export default MemorieCard;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 460px;
-  width: 22%;
-  min-width: 300px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-
-  transition: all ease 0.4s;
-  border-radius: 10px;
-
-  :hover {
-    transform: translateY(-3%);
-  }
-`;
-const Part1 = styled.div`
-  height: 100%;
-  position: relative;
-  flex: 1;
-`;
-
-const Text = styled.div`
-  position: absolute;
-  top: 10px;
-  left: 18px;
-`;
-
-const Part2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 0.7rem 1rem;
-  flex: 1;
-  p {
-    font-size: 16px;
-  }
-  span {
-    font-size: 12px;
-  }
-`;
-const Title = styled.div`
-  h1 {
-    font-size: 20px;
-  }
-`;

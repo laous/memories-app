@@ -48,7 +48,6 @@ const AddMemorie = () => {
     desc: "",
     hashtag: "",
     image: "",
-    username: session.user.username,
     email: session.user.email,
   });
 
@@ -117,7 +116,8 @@ const AddMemorie = () => {
       axios
         .post(`${hostname}/api/memories`, memorie)
         .then(() => router.push("/"))
-        .catch((error) => console.error(error.response.data));
+        .catch((error) => { alert("Action not completed!")
+          console.error(error.response.data)});
     }
   }, [memorie.image, imageUploaded, hostname, memorie, router]);
 
