@@ -1,9 +1,9 @@
-import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { BsPlusCircleFill } from "react-icons/bs";
 
 const Navbar = ({ term }) => {
   const { data: session, status } = useSession();
@@ -21,105 +21,54 @@ const Navbar = ({ term }) => {
   };
 
   return (
-    <Container>
-      <Wrapper>
+    <header className="flex justify-between items-center my-4">
+      <span className="text-2xl text-gray-700 uppercase tracking-wider cursor-pointer font-medium">
         <Link href={"/"} passHref>
-          <h1 style={{ cursor: "pointer" }}>Memories</h1>
+          Memories
         </Link>
-        <Search>
-          <Icon>
-            <AiOutlineSearch />
-          </Icon>
-          <input
-            type="text"
-            placeholder="Searching for a memorie?"
-            value={query}
-            onChange={(e) => handleChange(e)}
-          />
-        </Search>
+      </span>
+      <div className="w-1/3 hidden md:flex justify-between items-center bg-white rounded-sm py-3">
+        <input
+          type="text"
+          className="w-full outline-none border-none bg-transparent  px-5 pl-4 text-sm"
+          placeholder="Search by username"
+          onChange={(e) => handleChange(e)}
+          value={query}
+        />
+        <div className="flex items-center justify-center h-full  px-3 cursor-pointer text-gray-700 self-end">
+          <AiOutlineSearch className="w-5 h-5" />
+        </div>
+      </div>
 
-        {session ? (
-          <NewButton
+      {session ? (
+        <div className="flex items-center justify-center gap-6">
+          <Link href={"/add-memorie"} passHref>
+            <BsPlusCircleFill className="w-8 h-8 text-gray-700 cursor-pointer" />
+          </Link>
+
+          <button
+            className="px-5 py-1.5 bg-gray-700 text-white rounded-md"
             onClick={async () => {
               await signOut();
             }}
           >
             Sign out
-          </NewButton>
-        ) : (
-          <NewButton
+          </button>
+        </div>
+      ) : (
+        <>
+          {" "}
+          <button
+            className="px-5 py-1.5 bg-gray-700 text-white rounded-md"
             onClick={async () => {
               await signIn();
             }}
           >
             Login
-          </NewButton>
-          // <p>LL</p>
-        )}
-      </Wrapper>
-    </Container>
+          </button>
+        </>
+      )}
+    </header>
   );
 };
 export default Navbar;
-
-const Container = styled.header`
-  height: 70px;
-  width: 100%;
-`;
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-// const Logo = styled(Image)``;
-const Search = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-
-  input {
-    outline: none;
-    border: none;
-    background-color: #f0f0f0;
-    color: black;
-    padding: 0.5rem 1rem;
-    height: 42px;
-    width: 500px;
-    border-radius: 0 5px 5px 0;
-  }
-
-  @media screen and (max-width: 948px) {
-    display: none;
-  }
-`;
-
-const Icon = styled.div`
-  height: 42px;
-  padding: 0.6rem 0.8rem;
-  background-color: #444444;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  font-size: 1rem;
-  color: white;
-  border-radius: 5px 0 0 5px;
-  cursor: pointer;
-`;
-const NewButton = styled.button`
-  background-color: transparent;
-  outline: none;
-  border: none;
-  font-size: 17px;
-  cursor: pointer;
-  padding: 5px 10px;
-  transition: all 0.3s ease;
-
-  :hover {
-    border: 1px solid black;
-    transform: skewY(10%);
-  }
-`;

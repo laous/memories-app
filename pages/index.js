@@ -1,6 +1,5 @@
 import axios from 'axios'
 import Head from 'next/head'
-import HomeImage from '../components/HomeImage'
 import MemoriesList from '../components/MemoriesList'
 
 export default function Home({memoriesList}) {
@@ -13,9 +12,7 @@ export default function Home({memoriesList}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1 style={{textAlign:"center"}}>Welcome to memories!</h1>
-        <HomeImage />
-        <MemoriesList memories={memoriesList}/>
+        <MemoriesList memories={memoriesList} title={"Most viewed"}/>
       </main>
 
     </div>

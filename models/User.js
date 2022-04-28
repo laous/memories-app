@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      unique:true,
       required:true,
       maxlength: 60,
     },
@@ -16,8 +17,12 @@ const UserSchema = new mongoose.Schema(
         type:String,
         required:true
     },
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    resetToken: { type: String },
+    update: { type: String },
+    validEmail: { type: String, default: "not" },
+    emailToken: { type: String },
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'users' }]
   },
   { timestamps: true }
 );
